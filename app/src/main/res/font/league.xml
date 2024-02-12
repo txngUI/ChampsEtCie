@@ -1,0 +1,6 @@
+<font-family xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/leaguefont"
+        tools:ignore="ResourceCycle" />
+</font-family>

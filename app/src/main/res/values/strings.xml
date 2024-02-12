@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Champs&amp;Cie</string>
+    <string name="champ_cie"><b>CHAMPS</b><font color='#FFFFFF' size='18' fontFamily='League'>&amp;CIE</font></string>
+    <string name="search_hint">Search...</string>
+    <string name="roles"><strong>Roles</strong></string>
+    <string name="sort"><strong>Tri par ordre</strong></string>
+    <string name="kinds"><strong>Types</strong></string>
 </resources>
