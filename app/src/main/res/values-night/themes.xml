@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ChampsCie" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.ChampsCie" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:editTextColor">@color/red</item>
+        <item name="android:textColorHint">@color/red</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 </resources>

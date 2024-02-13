@@ -5,7 +5,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface YourApiService {
+public interface RiotAPI {
 
     @GET("api/versions.json")
     Call<List<String>> getVersions();

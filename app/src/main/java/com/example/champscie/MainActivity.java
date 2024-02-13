@@ -2,11 +2,12 @@ package com.example.champscie;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -16,50 +17,43 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    SearchView searchView;
+    ListView listChamps;
 
-    private ListView listChamps;
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        searchView = findViewById(R.id.searchView);
         listChamps = findViewById(R.id.listChamps);
 
-        // Configuration de Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://ddragon.leagueoflegends.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        arrayList = new ArrayList<>();
+        arrayList.add("Lundi");
+        arrayList.add("Mardi");
+        arrayList.add("Mercredi");
+        arrayList.add("Jeudi");
+        arrayList.add("Vendredi");
+        arrayList.add("Samedi");
+        arrayList.add("Dimanche");
 
-        // Création du service
-        YourApiService apiService = retrofit.create(YourApiService.class);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
 
-        // Appel à l'API
-        Call<List<Champion>> call = apiService.getChampions();
-        call.enqueue(new Callback<List<Champion>>() {
+        listChamps.setAdapter(adapter);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onResponse(Call<List<Champion>> call, Response<List<Champion>> response) {
-                if (response.isSuccessful()) {
-                    List<Champion> dataList = response.body();
-                    if (dataList != null && !dataList.isEmpty()) {
-                        // Assurez-vous que dataList contient des données valides.
-                        ArrayAdapter<Champion> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, dataList);
-                        listChamps.setAdapter(adapter);
-                    } else {
-                        // Aucune donnée valide à afficher, gérer cela en conséquence.
-                    }
-                } else {
-                    // Gérer l'erreur ici
-                }
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onFailure(Call<List<Champion>> call, Throwable t) {
-                // Gérer l'erreur ici
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
             }
         });
-
-        listChamps.setVisibility(View.VISIBLE);
     }
 }
