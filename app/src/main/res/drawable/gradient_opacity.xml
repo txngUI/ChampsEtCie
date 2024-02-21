@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Premier dégradé horizontal -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#00808080"
+                android:endColor="#000000"
+                android:type="linear"
+                android:angle="180"/>
+        </shape>
+    </item>
+    <!-- Deuxième dégradé vertical -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#00808080"
+                android:endColor="#000000"
+                android:type="linear"
+                android:angle="270"/>
+        </shape>
+    </item>
+</layer-list>

@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ChampsCie" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.ChampsCie" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:editTextColor">@color/red</item>
         <item name="android:textColorHint">@color/red</item>
         <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="Theme.AppTheme.Material" parent="Theme.MaterialComponents.Light.NoActionBar">
+
     </style>
 </resources>

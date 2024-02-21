@@ -5,4 +5,7 @@
         <item name="android:textColorHint">@color/red</item>
         <item name="android:textColor">@color/red</item>
     </style>
+
+    <style name="Theme.AppTheme.Material" parent="Theme.MaterialComponents.Light.NoActionBar">
+    </style>
 </resources>
