@@ -5,15 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,12 +23,32 @@ public class MainActivity extends AppCompatActivity {
     SearchView searchView;
     RecyclerView recyclerView;
     ChampionAdapter championAdapter;
+    ImageView errorNotFound;
     private RiotAPI championApi;
+    private List<Champion> originalChampionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        errorNotFound = findViewById(R.id.imageView);
+        errorNotFound.setVisibility(View.GONE);
+        searchView = findViewById(R.id.searchView);
+        //searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -42,22 +60,23 @@ public class MainActivity extends AppCompatActivity {
 
         championApi = retrofit.create(RiotAPI.class);
 
-        searchView = findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                championAdapter.getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                championAdapter.getFilter().filter(newText);
-                return true;
-            }
-        });
-
         fetchChampions();
+    }
+
+    private void filterList(String newText) {
+        List<Champion> filteredList = new ArrayList<>();
+        for (Champion champion : originalChampionList) {
+            if (champion.getName().toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(champion);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            errorNotFound.setVisibility(View.VISIBLE);
+        } else {
+            errorNotFound.setVisibility(View.GONE);
+        }
+
+        championAdapter.setFilteredList(filteredList);
     }
 
     private void fetchChampions() {
@@ -71,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ChampionResponse championResponse = response.body();
                 if (championResponse != null) {
-                    List<Champion> championList = new ArrayList<>(championResponse.getData().values());
-                    championAdapter = new ChampionAdapter(MainActivity.this, championList);
+                    originalChampionList.addAll(championResponse.getData().values());
+                    championAdapter = new ChampionAdapter(MainActivity.this, originalChampionList);
                     recyclerView.setAdapter(championAdapter);
                 }
             }

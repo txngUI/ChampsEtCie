@@ -20,15 +20,22 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHolder> implements Filterable {
+public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHolder> {
     private Context context;
     private List<Champion> championList;
-    private List<Champion> filteredChampionList;
 
     public ChampionAdapter(Context context, List<Champion> championList) {
         this.context = context;
         this.championList = championList;
-        this.filteredChampionList = new ArrayList<>(championList);
+    }
+
+    public List<Champion> getChampionList() {
+        return championList;
+    }
+
+    public void setFilteredList(List<Champion> filteredList) {
+        this.championList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -54,38 +61,7 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return filteredChampionList.size();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String charString = constraint.toString().toLowerCase().trim();
-                if (charString.isEmpty()) {
-                    filteredChampionList = new ArrayList<>(championList);
-                } else {
-                    List<Champion> filteredList = new ArrayList<>();
-                    for (Champion champion : championList) {
-                        if (champion.getName().toLowerCase().contains(charString)) {
-                            filteredList.add(champion);
-                        }
-                    }
-                    filteredChampionList = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredChampionList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredChampionList = (ArrayList<Champion>) results.values;
-                notifyDataSetChanged();
-            }
-        };
+        return championList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
