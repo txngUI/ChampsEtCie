@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Button sort;
     Dialog mDialog;
-    ImageView closeDialog;
     private RiotAPI championApi;
     private List<Champion> originalChampionList = new ArrayList<>();
 
@@ -78,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog.setContentView(R.layout.sort_filter);
-                mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                mDialog.show();
+                SortFilterPopup popup = new SortFilterPopup(MainActivity.this);
+                popup.show();
             }
         });
     }

@@ -16,7 +16,8 @@
         android:contentDescription="@string/close_popup_description"
         android:focusable="true"
         android:src="@drawable/ic_close"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:id="@+id/sort"
@@ -46,35 +47,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Alphabétique - A à Z"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/alphaDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="Alphabétique - Z à A"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/newestToOldest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="Du plus récent au plus vieux"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/oldestToNewest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="Du plus vieux au plus récent"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/white" />
     </RadioGroup>
 
