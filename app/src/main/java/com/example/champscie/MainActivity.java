@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -24,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ChampionAdapter championAdapter;
     ImageView errorNotFound;
+    ProgressBar progressBar;
+    Button sort;
+    Dialog mDialog;
+    ImageView closeDialog;
     private RiotAPI championApi;
     private List<Champion> originalChampionList = new ArrayList<>();
 
@@ -32,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         errorNotFound = findViewById(R.id.imageView);
         errorNotFound.setVisibility(View.GONE);
         searchView = findViewById(R.id.searchView);
@@ -61,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
         championApi = retrofit.create(RiotAPI.class);
 
         fetchChampions();
+
+        sort = findViewById(R.id.sort);
+        mDialog = new Dialog(this);
+
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.setContentView(R.layout.sort_filter);
+                mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                mDialog.show();
+            }
+        });
     }
 
     private void filterList(String newText) {
@@ -93,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     originalChampionList.addAll(championResponse.getData().values());
                     championAdapter = new ChampionAdapter(MainActivity.this, originalChampionList);
                     recyclerView.setAdapter(championAdapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 

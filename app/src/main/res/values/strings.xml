@@ -4,4 +4,5 @@
     <string name="roles"><strong>Roles</strong></string>
     <string name="sort"><strong>Tri par ordre</strong></string>
     <string name="kinds"><strong>Types</strong></string>
+    <string name="close_popup_description">Fermer le filtre d\'ordre</string>
 </resources>
