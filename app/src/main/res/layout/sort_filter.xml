@@ -32,6 +32,7 @@
         android:layout_marginTop="50dp" />
 
     <RadioGroup
+        android:id="@+id/sortFilterRadioGroup"
         android:layout_below="@id/sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

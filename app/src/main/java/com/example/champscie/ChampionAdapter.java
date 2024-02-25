@@ -1,39 +1,35 @@
 package com.example.champscie;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHolder> {
     private Context context;
-    private List<Champion> championList;
+    private List<MinChampion> championList;
+    private ChampionClickListener championClickListener;
 
-    public ChampionAdapter(Context context, List<Champion> championList) {
+    public ChampionAdapter(Context context, List<MinChampion> championList, ChampionClickListener clickListener) {
         this.context = context;
         this.championList = championList;
+        this.championClickListener = clickListener;
     }
 
-    public List<Champion> getChampionList() {
+    public List<MinChampion> getChampionList() {
         return championList;
     }
 
-    public void setFilteredList(List<Champion> filteredList) {
+    public void setFilteredList(List<MinChampion> filteredList) {
         this.championList = filteredList;
         notifyDataSetChanged();
     }
@@ -47,7 +43,7 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Champion champion = championList.get(position);
+        MinChampion champion = championList.get(position);
 
         Glide.with(context)
                 .load(champion.getImageUrl())
@@ -57,6 +53,13 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.ViewHo
         holder.tvTitle.setText(champion.getTitle());
         holder.tvTags.setText(champion.getTags().toString());
         holder.tvBlurb.setText(champion.getBlurb());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                championClickListener.onChampionClick(champion);
+            }
+        });
     }
 
     @Override

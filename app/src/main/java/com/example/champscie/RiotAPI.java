@@ -1,12 +1,13 @@
 package com.example.champscie;
 
-import java.util.List;
-import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface RiotAPI {
     @GET("data/fr_FR/champion.json")
-    Call<ChampionResponse> getChampions();
+    Call<MinChampionResponse> getChampions();
+
+    @GET("data/fr_FR/champion/{id}.json")
+    Call<ChampionResponse> getChampionDetails(@Path("id") String championId);
 }

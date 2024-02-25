@@ -5,8 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ChampionClickListener {
     SearchView searchView;
     RecyclerView recyclerView;
     ChampionAdapter championAdapter;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button sort;
     Dialog mDialog;
     private RiotAPI championApi;
-    private List<Champion> originalChampionList = new ArrayList<>();
+    private List<MinChampion> originalChampionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         errorNotFound = findViewById(R.id.imageView);
         errorNotFound.setVisibility(View.GONE);
         searchView = findViewById(R.id.searchView);
-        //searchView.clearFocus();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void filterList(String newText) {
-        List<Champion> filteredList = new ArrayList<>();
-        for (Champion champion : originalChampionList) {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
             if (champion.getName().toLowerCase().contains(newText.toLowerCase())) {
                 filteredList.add(champion);
             }
@@ -100,27 +99,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchChampions() {
-        championApi.getChampions().enqueue(new Callback<ChampionResponse>() {
+        championApi.getChampions().enqueue(new Callback<MinChampionResponse>() {
             @Override
-            public void onResponse(Call<ChampionResponse> call, Response<ChampionResponse> response) {
+            public void onResponse(Call<MinChampionResponse> call, Response<MinChampionResponse> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                ChampionResponse championResponse = response.body();
-                if (championResponse != null) {
-                    originalChampionList.addAll(championResponse.getData().values());
-                    championAdapter = new ChampionAdapter(MainActivity.this, originalChampionList);
+                MinChampionResponse minChampionResponse = response.body();
+                if (minChampionResponse != null) {
+                    originalChampionList.addAll(minChampionResponse.getData().values());
+                    championAdapter = new ChampionAdapter(MainActivity.this, originalChampionList, MainActivity.this);
                     recyclerView.setAdapter(championAdapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onFailure(Call<ChampionResponse> call, Throwable t) {
+            public void onFailure(Call<MinChampionResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Erreur: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onChampionClick(MinChampion champion) {
+        Intent intent = new Intent(MainActivity.this, ChampionDetailsActivity.class);
+        intent.putExtra("championId", champion.getId());
+        startActivity(intent);
     }
 }
