@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.example.champscie.R;
+
 public class SortFilterPopup {
     private Dialog mDialog;
     private RadioButton alphaAsc;

@@ -1,13 +1,22 @@
 package com.example.champscie;
 
+import android.graphics.Typeface;
+import android.graphics.text.LineBreaker;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +27,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ChampionDetailsActivity extends AppCompatActivity {
     TextView name;
     TextView title;
+    TextView lore;
+    TextView tags;
+    TextView partType;
+    TextView difficulty;
+    ImageView imageViewQ;
+    TextView abilitieQTitle;
+    TextView abilitieQDescription;
+    ImageView imageViewW;
+    TextView abilitieWTitle;
+    TextView abilitieWDescription;
+    ImageView imageViewE;
+    TextView abilitieETitle;
+    TextView abilitieEDescription;
+    ImageView imageViewR;
+    TextView abilitieRTitle;
+    TextView abilitieRDescription;
+    ImageView imageViewP;
+    TextView abilitiePTitle;
+    TextView abilitiePDescription;
+    LinearLayout allyTips;
+    LinearLayout enemyTips;
+    LinearLayout skinsLayout;
+    ImageView image;
     private RiotAPI championApi;
     ImageView backBtn;
     private Champion champion;
@@ -26,11 +58,32 @@ public class ChampionDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.champion_details_activity);
 
-        // Initialisation des TextView
         name = findViewById(R.id.name);
         title = findViewById(R.id.title);
+        image = findViewById(R.id.imageChamp);
+        lore = findViewById(R.id.lore);
+        tags = findViewById(R.id.tags);
+        partType = findViewById(R.id.parType);
+        difficulty = findViewById(R.id.difficulty);
+        abilitieQTitle = findViewById(R.id.abilitieQTitle);
+        imageViewQ = findViewById(R.id.imageViewQ);
+        abilitieQDescription = findViewById(R.id.abilitieQDescription);
+        abilitieWTitle = findViewById(R.id.abilitieWTitle);
+        imageViewW = findViewById(R.id.imageViewW);
+        abilitieWDescription = findViewById(R.id.abilitieWDescription);
+        abilitieETitle = findViewById(R.id.abilitieETitle);
+        imageViewE = findViewById(R.id.imageViewE);
+        abilitieEDescription = findViewById(R.id.abilitieEDescription);
+        abilitieRTitle = findViewById(R.id.abilitieRTitle);
+        imageViewR = findViewById(R.id.imageViewR);
+        abilitieRDescription = findViewById(R.id.abilitieRDescription);
+        imageViewP = findViewById(R.id.imageViewP);
+        abilitiePTitle = findViewById(R.id.abilitiePTitle);
+        abilitiePDescription = findViewById(R.id.abilitiePDescription);
+        allyTips = findViewById(R.id.allyTipsLayout);
+        enemyTips = findViewById(R.id.enemyTipsLayout);
+        skinsLayout = findViewById(R.id.skinsLayout);
 
-        // Vérification pour éviter les NullPointerException
         if (name == null || title == null) {
             Log.e("ChampionDetailsActivity", "TextViews name or title is null");
             return;
@@ -67,8 +120,97 @@ public class ChampionDetailsActivity extends AppCompatActivity {
                 if (championResponse != null && championResponse.getData() != null) {
                     champion = championResponse.getData().get(championId);
                     if (champion != null) {
+                        List<Spell> spells = champion.getSpells();
                         name.setText(champion.getName());
                         title.setText(champion.getTitle());
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(champion.getImageUrl())
+                                .into(image);
+                        lore.setText(champion.getLore());
+                        tags.setText(champion.getTags());
+                        partType.setText(champion.getPartType());
+                        difficulty.setText(champion.getDifficulty());
+                        abilitieQTitle.setText("Q - " + spells.get(0).getName());
+                        abilitieQDescription.setText(spells.get(0).getDescription());
+
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(spells.get(0).getImageUrl())
+                                .into(imageViewQ);
+
+                        abilitieWTitle.setText("W - " + spells.get(1).getName());
+                        abilitieWDescription.setText(spells.get(1).getDescription());
+
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(spells.get(1).getImageUrl())
+                                .into(imageViewW);
+
+                        abilitieETitle.setText("E - " + spells.get(2).getName());
+                        abilitieEDescription.setText(spells.get(2).getDescription());
+
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(spells.get(2).getImageUrl())
+                                .into(imageViewE);
+
+                        abilitieRTitle.setText("R - " + spells.get(3).getName());
+                        abilitieRDescription.setText(spells.get(3).getDescription());
+
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(spells.get(3).getImageUrl())
+                                .into(imageViewR);
+
+                        abilitiePTitle.setText("Passif - " + champion.getPassive().getName());
+                        abilitiePDescription.setText(champion.getPassive().getDescription());
+
+                        Glide.with(ChampionDetailsActivity.this)
+                                .load(champion.getPassive().getImageUrl())
+                                .into(imageViewP);
+
+                        int i = 1;
+                        for (String tip : champion.getAllyTips()) {
+                            TextView textView = new TextView(ChampionDetailsActivity.this);
+                            textView.setTextColor(getResources().getColor(R.color.blurb));
+                            textView.setPadding(32,16,32,0);
+                            textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                            textView.setText(i + " - " + tip);
+                            allyTips.addView(textView);
+                            i++;
+                        }
+
+                        i = 1;
+                        for (String tip : champion.getEnemyTips()) {
+                            TextView textView = new TextView(ChampionDetailsActivity.this);
+                            textView.setTextColor(getResources().getColor(R.color.blurb));
+                            textView.setPadding(32,16,32,0);
+                            textView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                            textView.setText(i + " - " + tip);
+                            enemyTips.addView(textView);
+                            i++;
+                        }
+
+                        for (Skin skin : champion.getSkins()) {
+                            LinearLayout layoutSkin = new LinearLayout(ChampionDetailsActivity.this);
+                            layoutSkin.setOrientation(LinearLayout.VERTICAL);
+
+                            ImageView imageView = new ImageView(ChampionDetailsActivity.this);
+                            Glide.with(ChampionDetailsActivity.this)
+                                    .load(skin.getImageUrl() + champion.getId() + "_" + skin.getNum() + ".jpg")
+                                    .into(imageView);
+
+                            TextView nameTextView = new TextView(ChampionDetailsActivity.this);
+                            nameTextView.setText(skin.getName());
+                            nameTextView.setTextSize(16);
+                            nameTextView.setTypeface(null, Typeface.BOLD);
+                            nameTextView.setGravity(Gravity.CENTER);
+
+                            layoutSkin.addView(imageView);
+                            layoutSkin.addView(nameTextView);
+                            layoutSkin.setPadding(16, 16, 16, 64);
+
+                            skinsLayout.addView(layoutSkin);
+                        }
+
+
+
                     } else {
                         Log.e("ChampionDetailsActivity", "Champion details not found for ID: " + championId);
                     }
@@ -83,4 +225,5 @@ public class ChampionDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
 }
