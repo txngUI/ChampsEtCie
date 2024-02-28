@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:background="@drawable/cercle_background">
+
+    <ImageView
+        android:id="@+id/closePopup"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_toEndOf="@+id/partypFilterTitle"
+        android:clickable="true"
+        android:contentDescription="@string/close_popup_description"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:id="@+id/partypFilterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/league"
+        android:text="Tri par type :"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_below="@id/partypFilterTitle"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp">
+
+        <RadioGroup
+            android:id="@+id/sortFilterRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <RadioButton
+                android:id="@+id/mana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mana"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/energy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Energie"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/bloodyWell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Puit de sang"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rage"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/courage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Courage"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/shield"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bouclier"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/fury"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fureur"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/ferocity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Férocité"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/vapor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vapeur"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/agressivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agressivité"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/bloodFlow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Afflux Sanguin"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/impulse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Impulsion"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/noOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aucune"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:checked="true"
+                />
+
+        </RadioGroup>
+    </ScrollView>
+
+
+</RelativeLayout>

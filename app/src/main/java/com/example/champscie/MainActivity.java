@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,17 +26,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements ChampionClickListener {
+public class MainActivity extends AppCompatActivity implements ChampionClickListener, SortListener, PartypeFilterListener {
     SearchView searchView;
     RecyclerView recyclerView;
     ChampionAdapter championAdapter;
     ImageView errorNotFound;
     ProgressBar progressBar;
     Button sort;
+    Button kinds;
     Dialog mDialog;
     private RiotAPI championApi;
     private List<MinChampion> originalChampionList = new ArrayList<>();
-
+    private SortFilterPopup sortPopup;
+    private PartypeFilterPopup partypePopup;
+    private RadioButton selectedRadioButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +79,26 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
         sort = findViewById(R.id.sort);
         mDialog = new Dialog(this);
 
+        sortPopup = new SortFilterPopup(MainActivity.this, MainActivity.this);
+
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SortFilterPopup popup = new SortFilterPopup(MainActivity.this);
-                popup.show();
+                sortPopup.setSelectedRadioButton(selectedRadioButton);
+                sortPopup.show();
             }
         });
+
+        kinds = findViewById(R.id.kinds);
+        partypePopup = new PartypeFilterPopup(MainActivity.this, MainActivity.this);
+        kinds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                partypePopup.setSelectedRadioButton(selectedRadioButton);
+                partypePopup.show();
+            }
+        });
+
     }
 
     private void filterList(String newText) {
@@ -128,5 +147,164 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
         Intent intent = new Intent(MainActivity.this, ChampionDetailsActivity.class);
         intent.putExtra("championId", champion.getId());
         startActivity(intent);
+    }
+
+    @Override
+    public void onAlphaAscClicked() {
+        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
+            @Override
+            public int compare(MinChampion o1, MinChampion o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
+        championAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAlphaDescClicked() {
+        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
+            @Override
+            public int compare(MinChampion o1, MinChampion o2) {
+                return o2.getName().compareToIgnoreCase(o1.getName());
+            }
+        });
+        championAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onManaClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Mana")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onEnergyClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Énergie")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onBloodyWellClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Puits de sang")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onRageClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Rage")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onCourageClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Courage")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onShieldClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Bouclier")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onFuryClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Fureur")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onFerocityClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Férocité")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onVaporClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Vapeur")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onAgressivityClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Agressivité")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onBloodFlowClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Afflux sanguin")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onImpulseClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getPartype().equals("Impulsion")) {
+                filteredList.add(champion);
+            }
+        }
+        championAdapter.setFilteredList(filteredList);
+    }
+
+    @Override
+    public void onNoOneClicked() {
+        championAdapter.setFilteredList(originalChampionList);
     }
 }

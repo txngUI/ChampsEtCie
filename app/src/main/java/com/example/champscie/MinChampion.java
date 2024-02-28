@@ -18,6 +18,9 @@ public class MinChampion {
     private LinkedList<String> tags;
     @SerializedName("key")
     private String key;
+    @SerializedName("partype")
+    private String partype;
+
     public String getImageUrl() {
         return "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + id + "_0.jpg";
     }
@@ -42,5 +45,8 @@ public class MinChampion {
     }
     public String getKey() {
         return key;
+    }
+    public String getPartype() {
+        return partype;
     }
 }

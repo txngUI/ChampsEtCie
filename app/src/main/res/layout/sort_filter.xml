@@ -60,21 +60,7 @@
             android:textSize="14sp"
             android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/newestToOldest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Du plus récent au plus vieux"
-            android:textSize="14sp"
-            android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/oldestToNewest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Du plus vieux au plus récent"
-            android:textSize="14sp"
-            android:textColor="@color/white" />
     </RadioGroup>
 
 
