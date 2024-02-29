@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:background="@drawable/cercle_background">
+
+    <ImageView
+        android:id="@+id/closePopup"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@+id/rolesTitle"
+        android:clickable="true"
+        android:contentDescription="@string/close_popup_description"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/rolesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/league"
+        android:text="Tri par role(s) :"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rolesTitle"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="20dp">
+
+        <RadioGroup
+            android:id="@+id/sortFilterRadioGroup"
+            android:layout_below="@id/sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="20dp"
+            >
+
+            <RadioButton
+                android:id="@+id/all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Tous"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/mage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Mage" />
+
+            <RadioButton
+                android:id="@+id/assassin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Assassin" />
+
+            <RadioButton
+                android:id="@+id/marksman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Marksman" />
+
+            <RadioButton
+                android:id="@+id/tank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Tank" />
+
+            <RadioButton
+                android:id="@+id/support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Support" />
+
+            <RadioButton
+                android:id="@+id/fighter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Fighter" />
+
+        </RadioGroup>
+    </ScrollView>
+</RelativeLayout>

@@ -26,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements ChampionClickListener, SortListener, PartypeFilterListener {
+public class MainActivity extends AppCompatActivity implements ChampionClickListener, SortListener, PartypeFilterListener, SortRoleListener {
     SearchView searchView;
     RecyclerView recyclerView;
     ChampionAdapter championAdapter;
@@ -34,11 +34,14 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
     ProgressBar progressBar;
     Button sort;
     Button kinds;
+    Button roles;
     Dialog mDialog;
     private RiotAPI championApi;
     private List<MinChampion> originalChampionList = new ArrayList<>();
+    private List<MinChampion> currentFilteredList = new ArrayList<>();
     private SortFilterPopup sortPopup;
     private PartypeFilterPopup partypePopup;
+    private SortRoleFilter rolePopup;
     private RadioButton selectedRadioButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,15 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
             }
         });
 
+        roles = findViewById(R.id.roles);
+        rolePopup = new SortRoleFilter(MainActivity.this, MainActivity.this);
+        roles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rolePopup.show();
+            }
+        });
+
     }
 
     private void filterList(String newText) {
@@ -151,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     @Override
     public void onAlphaAscClicked() {
-        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
+        Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
             @Override
             public int compare(MinChampion o1, MinChampion o2) {
                 return o1.getName().compareToIgnoreCase(o2.getName());
@@ -162,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     @Override
     public void onAlphaDescClicked() {
-        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
+        Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
             @Override
             public int compare(MinChampion o1, MinChampion o2) {
                 return o2.getName().compareToIgnoreCase(o1.getName());
@@ -179,7 +191,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -190,7 +204,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -201,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -212,7 +230,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -223,7 +243,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -234,7 +256,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -245,7 +269,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -256,7 +282,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -267,7 +295,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -278,7 +308,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -289,7 +321,9 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
@@ -300,11 +334,96 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
                 filteredList.add(champion);
             }
         }
-        championAdapter.setFilteredList(filteredList);
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
     }
 
     @Override
     public void onNoOneClicked() {
+        championAdapter.setFilteredList(originalChampionList);
+    }
+
+    @Override
+    public void onMageClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Mage")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onAssassinClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Assassin")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onMarksmanClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Marksman")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onTankClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Tank")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onSupportClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Support")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onFighterClicked() {
+        List<MinChampion> filteredList = new ArrayList<>();
+        for (MinChampion champion : originalChampionList) {
+            if (champion.getTags().contains("Fighter")) {
+                filteredList.add(champion);
+            }
+        }
+        currentFilteredList.clear();
+        currentFilteredList.addAll(filteredList);
+        championAdapter.setFilteredList(currentFilteredList);
+    }
+
+    @Override
+    public void onAllClicked() {
         championAdapter.setFilteredList(originalChampionList);
     }
 }

@@ -36,6 +36,7 @@
         android:layout_height="300dp"
         android:layout_below="@id/partypFilterTitle"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:paddingBottom="20dp">
@@ -46,6 +47,16 @@
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingRight="30dp">
+
+            <RadioButton
+                android:id="@+id/noOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aucune"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:checked="true"
+                />
 
             <RadioButton
                 android:id="@+id/mana"
@@ -142,16 +153,6 @@
                 android:text="Impulsion"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/noOne"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aucune"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:checked="true"
-                />
 
         </RadioGroup>
     </ScrollView>
