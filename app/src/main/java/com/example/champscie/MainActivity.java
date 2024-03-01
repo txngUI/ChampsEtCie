@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     private void filterList(String newText) {
         List<MinChampion> filteredList = new ArrayList<>();
-        for (MinChampion champion : originalChampionList) {
+        for (MinChampion champion : currentFilteredList.isEmpty() ? originalChampionList : currentFilteredList) {
             if (champion.getName().toLowerCase().contains(newText.toLowerCase())) {
                 filteredList.add(champion);
             }
@@ -163,24 +163,44 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     @Override
     public void onAlphaAscClicked() {
-        Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
+        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
             @Override
             public int compare(MinChampion o1, MinChampion o2) {
                 return o1.getName().compareToIgnoreCase(o2.getName());
             }
         });
-        championAdapter.notifyDataSetChanged();
+
+        if (!currentFilteredList.isEmpty()) {
+            Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
+                @Override
+                public int compare(MinChampion o1, MinChampion o2) {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+            });
+        }
+
+        championAdapter.setFilteredList(currentFilteredList.isEmpty() ? originalChampionList : currentFilteredList);
     }
 
     @Override
     public void onAlphaDescClicked() {
-        Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
+        Collections.sort(originalChampionList, new Comparator<MinChampion>() {
             @Override
             public int compare(MinChampion o1, MinChampion o2) {
                 return o2.getName().compareToIgnoreCase(o1.getName());
             }
         });
-        championAdapter.notifyDataSetChanged();
+
+        if (!currentFilteredList.isEmpty()) {
+            Collections.sort(currentFilteredList, new Comparator<MinChampion>() {
+                @Override
+                public int compare(MinChampion o1, MinChampion o2) {
+                    return o2.getName().compareToIgnoreCase(o1.getName());
+                }
+            });
+        }
+
+        championAdapter.setFilteredList(currentFilteredList.isEmpty() ? originalChampionList : currentFilteredList);
     }
 
     @Override

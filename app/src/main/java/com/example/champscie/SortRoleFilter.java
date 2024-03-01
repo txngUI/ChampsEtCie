@@ -123,4 +123,9 @@ public class SortRoleFilter {
     public void show() {
         mDialog.show();
     }
+
+    public void clearFilters() {
+        selectedCheckBox = all;
+        all.setChecked(true);
+    }
 }

@@ -194,4 +194,9 @@ public class PartypeFilterPopup {
             selectedRadioButton.setChecked(true);
         }
     }
+
+    public void clearFilters() {
+        selectedRadioButton = noOne;
+        noOne.setChecked(true);
+    }
 }
