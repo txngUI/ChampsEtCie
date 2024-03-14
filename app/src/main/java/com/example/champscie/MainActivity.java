@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
     private PartypeFilterPopup partypePopup;
     private SortRoleFilter rolePopup;
     private RadioButton selectedRadioButton;
+    private String version;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +73,27 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://ddragon.leagueoflegends.com/cdn/14.3.1/")
+                .baseUrl("https://ddragon.leagueoflegends.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         championApi = retrofit.create(RiotAPI.class);
 
-        fetchChampions();
+        championApi.getVersions().enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                Log.d("Version", "onResponse: " + response.body().get(0));
+                MainActivity.this.version = response.body().get(0);
+                fetchChampions();
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.e("MainActivity", "onFailure: " + t.getMessage());
+            }
+        });
+
+
 
         sort = findViewById(R.id.sort);
         mDialog = new Dialog(this);
@@ -130,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
     }
 
     private void fetchChampions() {
-        championApi.getChampions().enqueue(new Callback<MinChampionResponse>() {
+        championApi.getChampions(this.version).enqueue(new Callback<MinChampionResponse>() {
             @Override
             public void onResponse(Call<MinChampionResponse> call, Response<MinChampionResponse> response) {
                 if (!response.isSuccessful()) {
@@ -158,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
     public void onChampionClick(MinChampion champion) {
         Intent intent = new Intent(MainActivity.this, ChampionDetailsActivity.class);
         intent.putExtra("championId", champion.getId());
+        intent.putExtra("version", this.version);
         startActivity(intent);
     }
 
@@ -361,6 +378,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     @Override
     public void onNoOneClicked() {
+        currentFilteredList.clear();
         championAdapter.setFilteredList(originalChampionList);
     }
 
@@ -444,6 +462,7 @@ public class MainActivity extends AppCompatActivity implements ChampionClickList
 
     @Override
     public void onAllClicked() {
+        currentFilteredList.clear();
         championAdapter.setFilteredList(originalChampionList);
     }
 }

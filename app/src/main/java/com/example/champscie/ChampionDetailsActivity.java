@@ -90,6 +90,7 @@ public class ChampionDetailsActivity extends AppCompatActivity {
         }
 
         String championId = getIntent().getStringExtra("championId");
+        String version = getIntent().getStringExtra("version");
 
         // Verify that the championId is being passed from the MainActivity
         Log.d("ChampionDetailsActivity", "Champion ID: " + championId);
@@ -101,13 +102,13 @@ public class ChampionDetailsActivity extends AppCompatActivity {
         });
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://ddragon.leagueoflegends.com/cdn/14.3.1/")
+                .baseUrl("https://ddragon.leagueoflegends.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         championApi = retrofit.create(RiotAPI.class);
 
-        Call<ChampionResponse> call = championApi.getChampionDetails(championId);
+        Call<ChampionResponse> call = championApi.getChampionDetails(version, championId);
         call.enqueue(new Callback<ChampionResponse>() {
             @Override
             public void onResponse(Call<ChampionResponse> call, Response<ChampionResponse> response) {
