@@ -1,4 +1,7 @@
-package com.example.champscie;
+package com.example.champscie.Models;
+
+import com.example.champscie.Models.Champion;
+import com.example.champscie.Models.MinChampion;
 
 import java.util.Map;
 

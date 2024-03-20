@@ -1,8 +1,8 @@
-package com.example.champscie;
+package com.example.champscie.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-class Passive {
+public class Passive {
     @SerializedName("name")
     private String name;
     @SerializedName("description")

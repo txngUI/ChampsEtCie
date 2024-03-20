@@ -1,5 +1,6 @@
-package com.example.champscie;
+package com.example.champscie.Models;
 
+import com.example.champscie.Models.Champion;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.champscie;
+package com.example.champscie.Controllers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.champscie.Models.MinChampion;
+import com.example.champscie.R;
 
 import java.util.List;
 

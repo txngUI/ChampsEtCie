@@ -1,9 +1,8 @@
-package com.example.champscie;
+package com.example.champscie.View;
 
 import android.graphics.Typeface;
 import android.graphics.text.LineBreaker;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -15,6 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.champscie.Models.ChampionResponse;
+import com.example.champscie.Models.Champion;
+import com.example.champscie.Models.RiotAPI;
+import com.example.champscie.R;
+import com.example.champscie.Models.Skin;
+import com.example.champscie.Models.Spell;
 
 import java.util.List;
 

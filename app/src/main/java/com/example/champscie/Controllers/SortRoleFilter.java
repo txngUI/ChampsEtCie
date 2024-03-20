@@ -1,13 +1,14 @@
-package com.example.champscie;
+package com.example.champscie.Controllers;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+
+import com.example.champscie.R;
 
 public class SortRoleFilter {
     private RadioButton all;

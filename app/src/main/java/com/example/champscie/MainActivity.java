@@ -16,6 +16,19 @@ import android.widget.RadioButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.champscie.Controllers.ChampionAdapter;
+import com.example.champscie.Controllers.ChampionClickListener;
+import com.example.champscie.Models.MinChampionResponse;
+import com.example.champscie.Models.MinChampion;
+import com.example.champscie.Models.RiotAPI;
+import com.example.champscie.Controllers.PartypeFilterListener;
+import com.example.champscie.Controllers.PartypeFilterPopup;
+import com.example.champscie.Controllers.SortFilterPopup;
+import com.example.champscie.Controllers.SortListener;
+import com.example.champscie.Controllers.SortRoleFilter;
+import com.example.champscie.Controllers.SortRoleListener;
+import com.example.champscie.View.ChampionDetailsActivity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

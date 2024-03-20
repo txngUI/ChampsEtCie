@@ -1,8 +1,7 @@
-package com.example.champscie;
+package com.example.champscie.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Champion {

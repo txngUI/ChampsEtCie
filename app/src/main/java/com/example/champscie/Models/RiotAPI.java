@@ -1,4 +1,4 @@
-package com.example.champscie;
+package com.example.champscie.Models;
 
 import java.util.List;
 

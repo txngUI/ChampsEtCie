@@ -1,8 +1,8 @@
-package com.example.champscie;
+package com.example.champscie.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-class Skin {
+public class Skin {
     @SerializedName("num")
     private int num;
     @SerializedName("name")
